@@ -2,7 +2,7 @@
 
 Invoicing application
 
-## Pre-requesits
+## Prerequisites
 
 You will need to have [node][node] and [gulp][gulp] setup on your machine.
 
