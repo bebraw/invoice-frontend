@@ -1,7 +1,7 @@
 'use strict';
 var React = require('react');
 var validate = require('plexus-validate');
-var Form = require('./plexus-form');
+var Form = require('plexus-form');
 var $ = React.DOM;
 window.React = React;
 
