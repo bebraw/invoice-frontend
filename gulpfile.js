@@ -7,6 +7,8 @@ var watchify = require('watchify');
 var imagemin = require('gulp-imagemin');
 var browserSync = require('browser-sync');
 var source = require('vinyl-source-stream');
+var reactify = require('reactify');
+
 
 gulp.task('default', ['server', 'watch']);
 gulp.task('compile', ['scripts', 'css', 'html', 'assets']);
@@ -37,12 +39,16 @@ gulp.task('watchScripts', function() {
 
 function scripts(watch) {
     var bundler, rebundle;
-    var scriptFile = './src/js/app.js';
-    if (watch) {
+    var scriptFile = './src/js/app.jsx';
+
+    if(watch) {
         bundler = watchify(scriptFile);
     } else {
         bundler = browserify(scriptFile);
     }
+
+    bundler.transform(reactify);
+
     rebundle = function() {
         var stream = bundler.bundle({
             debug: !production
