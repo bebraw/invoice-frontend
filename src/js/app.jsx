@@ -5,6 +5,7 @@ var Form = require('./plexus-form');
 var $ = React.DOM;
 window.React = React;
 
+
 var schema = {
     'title': 'Invoice',
     'description': 'Invoice generator',
@@ -58,16 +59,11 @@ var schema = {
         }
     }
 };
-var SchemaEditor = React.createClass({
-    displayName: 'SchemaEditor',
-    preventSubmit: function(event) {
-        event.preventDefault();
-    },
+var Preview = React.createClass({
+    displayName: 'Preview',
     render: function() {
         return (
-            <form onSubmit={this.preventSubmit}>
-                <textarea rows="30" cols="60" onChange={this.props.onChange} value={this.props.value} />
-            </form>
+            <pre>{JSON.stringify(this.props.data, null, 4)}</pre>
         );
     }
 });
@@ -79,44 +75,18 @@ var FormDemoPage = React.createClass({
             text: JSON.stringify(schema, null, 2)
         };
     },
-    update: function(event) {
-        var text = event.target.value;
-        var schema;
-        try {
-            schema = JSON.parse(event.target.value);
-            this.setState({
-                schema: schema,
-                text: text
-            });
-        } catch (ex) {
-            this.setState({
-                text: text
-            });
-        }
-    },
-    onFormSubmit: function(data, value) {
-        this.setState({
-            button: value,
-            data: data
-        });
-    },
     render: function() {
+        // TODO: need to implement Form.onChange to get this work nicely
         return (
             <div>
                 <ul className="flexContainer">
                     <li className="flexItem">
-                        <h3>Schema:</h3>
-                        <SchemaEditor value={this.state.text} onChange={this.update} />
+                        <h3>Invoice</h3>
+                        <Form buttons={[]} schema={this.state.schema} validate={validate} />
                     </li>
                     <li className="flexItem">
-                        <h3>Generated form:</h3>
-                        <Form buttons={['Dismissed', 'Energise']} onSubmit={this.onFormSubmit} schema={this.state.schema} validate={validate} />
-                    </li>
-                    <li className="flexItem">
-                        <h3>Data:</h3>
-                        <pre>{JSON.stringify(this.state.data, null, 4)}</pre>
-                        <h3>Button:</h3>
-                        <p>{this.state.button}</p>
+                        <h3>Preview</h3>
+                        <Preview data={this.state.data} />
                     </li>
                 </ul>
             </div>
