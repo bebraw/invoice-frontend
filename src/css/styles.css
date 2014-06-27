@@ -5,22 +5,17 @@
 }
 
 html {
-    font-size: 13px;
+    font-size: 1em;
     font-family: arial, sans-serif;
 }
 
-.flexContainer {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+.fields {
+    float: left;
 }
 
-.flexItem {
-  margin-right: 20px;
+.preview {
+    overflow: hidden;
+    padding-left: 1em;
 }
 
 .error, .error * {
@@ -50,4 +45,25 @@ html {
     visibility: hidden;
     display: block;
     height: 0;
+}
+
+/* preview */
+header {
+    margin-bottom: 4em;
+}
+
+header .sender {
+    float: left;
+}
+
+header .extra {
+    float: right;
+}
+
+article {
+    margin-bottom: 4em;
+}
+
+footer {
+
 }

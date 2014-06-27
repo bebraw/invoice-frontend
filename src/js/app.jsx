@@ -39,6 +39,16 @@ var schema = {
             'minLength': 1,
             'maxLength': 10
         },
+/*        'recipient': {
+            'title': 'Recipient',
+            'type': 'object',
+            'properties': {
+                'name': {
+                    'title': 'Name',
+                    'type': 'string'
+                }
+            }
+        },*/
         'services': {
             'title': 'Services',
             'type': 'array',
@@ -62,8 +72,35 @@ var schema = {
 var Preview = React.createClass({
     displayName: 'Preview',
     render: function() {
+        console.log(this.props.data);
+
+        // XXX: arrays/objects may be undefined initially
         return (
-            <pre>{JSON.stringify(this.props.data, null, 4)}</pre>
+            <div className="preview">
+                <header>
+                    <div className="sender">
+                        <div className="company">Company ltd.</div>
+                        <div className="name">{this.props.data.name}</div>
+                        <div className="address">12345 JYVÄSKYLÄ</div>
+                    </div>
+                    <div className="extra">
+                        <div className="invoice">INVOICE</div>
+                        <div className="date">{new Date().toString()}</div>
+                        <div className="logo">LOGO</div>
+                    </div>
+                </header>
+                <article>
+                    <table className="services">
+                        <tr><th>Service</th><th>Tax free</th><th>Tax</th><th>Total</th></tr>
+                        {this.props.data.services.map(function(service, i) {
+                            return <tr key={i}><td>{service.name}</td><td>{service.cost}</td></tr>;
+                        })}
+                    </table>
+                </article>
+                <footer>
+                    <div className="companyDetails"></div>
+                </footer>
+            </div>
         );
     }
 });
@@ -72,7 +109,12 @@ var FormDemoPage = React.createClass({
     getInitialState: function() {
         return {
             schema: schema,
-            text: JSON.stringify(schema, null, 2)
+            text: JSON.stringify(schema, null, 2),
+            // XXX: looks like these values aren't taken in count by Form!!!
+            values: {
+                services: [],
+                recipient: {}
+            }
         };
     },
     onSubmit: function(output) {
@@ -83,23 +125,17 @@ var FormDemoPage = React.createClass({
     render: function() {
         return (
             <div>
-                <ul className="flexContainer">
-                    <li className="flexItem">
-                        <h3>Invoice</h3>
-                        <Form
-                            buttons={[]}
-                            schema={this.state.schema}
-                            validate={validate}
-                            submitOnChange={true}
-                            onSubmit={this.onSubmit}
-                            values={this.state.values}
-                        />
-                    </li>
-                    <li className="flexItem">
-                        <h3>Preview</h3>
-                        <Preview data={this.state.values} />
-                    </li>
-                </ul>
+                <div className="fields">
+                    <Form
+                        buttons={[]}
+                        schema={this.state.schema}
+                        validate={validate}
+                        submitOnChange={true}
+                        onSubmit={this.onSubmit}
+                        values={this.state.values}
+                    />
+                </div>
+                <Preview data={this.state.values} />
             </div>
         );
     }
