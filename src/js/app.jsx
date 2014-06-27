@@ -75,18 +75,29 @@ var FormDemoPage = React.createClass({
             text: JSON.stringify(schema, null, 2)
         };
     },
+    onSubmit: function(output) {
+        this.setState({
+            values: output
+        });
+    },
     render: function() {
-        // TODO: need to implement Form.onChange to get this work nicely
         return (
             <div>
                 <ul className="flexContainer">
                     <li className="flexItem">
                         <h3>Invoice</h3>
-                        <Form buttons={[]} schema={this.state.schema} validate={validate} />
+                        <Form
+                            buttons={[]}
+                            schema={this.state.schema}
+                            validate={validate}
+                            submitOnChange={true}
+                            onSubmit={this.onSubmit}
+                            values={this.state.values}
+                        />
                     </li>
                     <li className="flexItem">
                         <h3>Preview</h3>
-                        <Preview data={this.state.data} />
+                        <Preview data={this.state.values} />
                     </li>
                 </ul>
             </div>

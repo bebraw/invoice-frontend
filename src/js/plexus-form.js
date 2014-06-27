@@ -60,15 +60,15 @@ normalizer.number = function(text) {
 var parser = {};
 
 parser.string = function(text) {
-  return normalizer.string(text).trim();
+  return normalizer.string(text);
 };
 
 parser.integer = function(text) {
-  return parseInt(normalizer.integer(text));
+  return text ? parseInt(normalizer.integer(text)) : null;
 };
 
 parser.number = function(text) {
-  return parseFloat(normalizer.number(text));
+  return text ? parseFloat(normalizer.number(text)) : null;
 };
 
 
@@ -406,11 +406,15 @@ var Form = React.createClass({
     var values = normalise(ou.setIn(this.state.values, path, raw), schema);
     var output = normalise(ou.setIn(this.state.output, path, parsed), schema);
     var errors = hashedErrors(this.props.validate(schema, output));
-    this.setState({
-      values: values,
-      output: output,
-      errors: errors
-    });
+
+    if (this.props.submitOnChange)
+      this.props.onSubmit(output, null, errors);
+    else
+      this.setState({
+        values: values,
+        output: output,
+        errors: errors
+      });
   },
   getValue: function(path) {
     return ou.getIn(this.state.values, path);
@@ -422,7 +426,9 @@ var Form = React.createClass({
     event.preventDefault();
   },
   handleSubmit: function(event) {
-    this.props.onSubmit(this.state.output, event.target.value);
+    this.props.onSubmit(this.state.output,
+                        event.target.value,
+                        this.state.errors);
   },
   handleKeyPress: function(event) {
     if (event.keyCode == 13 && this.props.enterKeySubmits)
