@@ -111,10 +111,33 @@ var Preview = React.createClass({
             };
         });
 
+        // attach totals
+        var total = sum(services, 'total');
+        services.push({
+            name: 'Total',
+            cost: sum(services, 'cost'),
+            vat: sum(services, 'vat'),
+            vatCost: sum(services, 'vatCost'),
+            total: total,
+        });
+
+        services.push({
+            name: 'Total',
+            total: total
+        });
+
         function sum(d, prop) {
-            return d.reduce(function(a, b) {
-                return a[prop] + b[prop];
+            return d.map(function(a) {
+                return a[prop];
+            }).reduce(function(a, b) {
+                return a + b;
             }, 0);
+        }
+
+        function toFixed(a) {
+            if(a) {
+                return a.toFixed(2);
+            }
         }
 
         return (
@@ -152,26 +175,12 @@ var Preview = React.createClass({
                         {services.map(function(service, i) {
                             return <tr key={i}>
                                 <td>{service.name}</td>
-                                <td>{service.cost.toFixed(2)}</td>
-                                <td>{service.vat.toFixed(2)}</td>
-                                <td>{service.vatCost.toFixed(2)}</td>
-                                <td>{service.total.toFixed(2)}</td>
+                                <td>{toFixed(service.cost)}</td>
+                                <td>{toFixed(service.vat)}</td>
+                                <td>{toFixed(service.vatCost)}</td>
+                                <td>{toFixed(service.total)}</td>
                             </tr>;
                         })}
-                        <tr>
-                            <td>Total</td>
-                            <td>{sum(services, 'cost').toFixed(2)}</td>
-                            <td>{sum(services, 'vat').toFixed(2)}</td>
-                            <td>{sum(services, 'vatCost').toFixed(2)}</td>
-                            <td>{sum(services, 'total').toFixed(2)}</td>
-                        </tr>
-                        <tr>
-                            <td>Total</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>{sum(services, 'total').toFixed(2)}</td>
-                        </tr>
                     </table>
                 </article>
                 <footer>
