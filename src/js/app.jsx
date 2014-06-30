@@ -1,6 +1,7 @@
 'use strict';
 var React = require('react');
 var LocalStorageMixin = require('react-localstorage');
+var moment = require('moment');
 var validate = require('plexus-validate');
 var Form = require('plexus-form');
 
@@ -88,6 +89,7 @@ var Preview = React.createClass({
     displayName: 'Preview',
 
     render: function() {
+        var today = moment().format('DD.MM.YYYY');
         var data = this.props.data;
 
         // XXX: arrays/objects may be undefined initially so extra checks are needed
@@ -105,7 +107,7 @@ var Preview = React.createClass({
                     </div>
                     <div className="extra">
                         <div className="invoice">INVOICE</div>
-                        <div className="date">{new Date().toString()}</div>
+                        <div className="date">{today}</div>
                         <div className="logo">LOGO</div>
                     </div>
                 </header>
