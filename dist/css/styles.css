@@ -1,0 +1,101 @@
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html {
+    font-size: 1em;
+    font-family: arial, sans-serif;
+}
+
+.fields {
+    float: left;
+}
+
+.preview {
+    overflow: hidden;
+    padding-left: 1em;
+}
+
+.error, .error * {
+    color: red;
+}
+
+.form-subsection {
+    padding: 0.5em;
+    margin: 0.5em 0;
+}
+
+.form-section-title {
+    font-weight: bold;
+}
+
+.form-element label {
+    float: left;
+    clear: left;
+    text-align: right;
+    width: 8em;
+    margin-right: 1em;
+}
+
+.form-element:after {
+    clear: both;
+    content: " ";
+    visibility: hidden;
+    display: block;
+    height: 0;
+}
+
+/* preview */
+header {
+    overflow: auto;
+    margin-bottom: 4em;
+}
+
+header .sender {
+    float: left;
+}
+
+header .extra {
+    float: right;
+}
+
+article, .info {
+    margin-bottom: 4em;
+}
+
+.services {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.services th, .services td {
+    margin: 0;
+    padding: 0.3em;
+}
+
+.services th {
+    font-weight: normal;
+}
+
+.services th, .services td {
+    text-align: right;
+    border-bottom: 0.1em solid black;
+}
+
+.services tr:nth-last-child(2) td, .services tr:last-child td {
+    border-bottom: none;
+}
+
+.services tr:last-child td {
+    font-weight: bold;
+}
+
+.services th:first-child, .services td:first-child {
+    text-align: left;
+}
+
+footer {
+
+}
