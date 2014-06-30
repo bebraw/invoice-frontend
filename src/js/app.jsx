@@ -165,13 +165,16 @@ var Preview = React.createClass({
                         </div>
                     </div>
                     <table className="services">
-                        <tr>
-                            <th>Service</th>
-                            <th>Tax free</th>
-                            <th>Tax (%)</th>
-                            <th>Tax</th>
-                            <th>Total</th>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Tax free</th>
+                                <th>Tax (%)</th>
+                                <th>Tax</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                         {services.map(function(service, i) {
                             return <tr key={i}>
                                 <td>{service.name}</td>
@@ -181,6 +184,7 @@ var Preview = React.createClass({
                                 <td>{toFixed(service.total)}</td>
                             </tr>;
                         })}
+                        </tbody>
                     </table>
                 </article>
                 <footer>
