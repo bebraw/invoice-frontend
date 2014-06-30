@@ -98,7 +98,7 @@ var Preview = React.createClass({
 
         // attach vats
         var services = this.props.data.services || [];
-        services = data.services.map(function(service) {
+        services = services.map(function(service) {
             var cost = service.cost || 0;
             var vatCost = vatPercent * cost;
 
