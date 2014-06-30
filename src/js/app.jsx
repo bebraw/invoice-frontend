@@ -114,7 +114,7 @@ var Preview = React.createClass({
         function sum(d, prop) {
             return d.reduce(function(a, b) {
                 return a[prop] + b[prop];
-            });
+            }, 0);
         }
 
         return (
