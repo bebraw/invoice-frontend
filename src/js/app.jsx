@@ -1,5 +1,6 @@
 'use strict';
 var React = require('react');
+var LocalStorageMixin = require('react-localstorage');
 var validate = require('plexus-validate');
 var Form = require('plexus-form');
 
@@ -85,6 +86,7 @@ var schema = {
 };
 var Preview = React.createClass({
     displayName: 'Preview',
+
     render: function() {
         var data = this.props.data;
 
@@ -132,6 +134,8 @@ var Preview = React.createClass({
 });
 var FormDemoPage = React.createClass({
     displayName: 'FormDemoPage',
+    mixins: [LocalStorageMixin],
+
     getInitialState: function() {
         return {
             schema: schema,
