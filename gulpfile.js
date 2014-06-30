@@ -13,9 +13,9 @@ var reactify = require('reactify');
 gulp.task('default', ['server', 'watch']);
 gulp.task('compile', ['scripts', 'css', 'html', 'assets']);
 gulp.task('server', function() {
-    return browserSync.init(['build/js/*.js', 'build/index.html'], {
+    return browserSync.init(['dist/js/*.js', 'dist/index.html'], {
         server: {
-            baseDir: './build'
+            baseDir: './dist'
         }
     });
 });
@@ -57,17 +57,17 @@ function scripts(watch) {
             console.log('Browserify error : ' + err);
         });
         stream = stream.pipe(source('bundle.js'));
-        return stream.pipe(gulp.dest('build/js'));
+        return stream.pipe(gulp.dest('dist/js'));
     };
     bundler.on('update', rebundle);
     return rebundle();
 }
 gulp.task('css', function() {
-    return gulp.src('src/css/*.css').pipe(gulp.dest('build/css'));
+    return gulp.src('src/css/*.css').pipe(gulp.dest('dist/css'));
 });
 gulp.task('html', function() {
-    return gulp.src('src/index.html').pipe(gulp.dest('build'));
+    return gulp.src('src/index.html').pipe(gulp.dest('dist'));
 });
 gulp.task('assets', function() {
-    return gulp.src(['src/assets/*.png', 'src/assets/*.jpg']).pipe(imagemin()).pipe(gulp.dest('build/assets'));
+    return gulp.src(['src/assets/*.png', 'src/assets/*.jpg']).pipe(imagemin()).pipe(gulp.dest('dist/assets'));
 });
