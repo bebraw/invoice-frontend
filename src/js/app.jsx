@@ -5,62 +5,78 @@ var Form = require('plexus-form');
 
 
 var schema = {
-    'title': 'Invoice',
-    'description': 'Invoice generator',
-    'type': 'object',
-    'required': ['name', 'memberId', 'invoiceNumber', 'services'],
-    'properties': {
-        'name': {
-            'title': 'Your name',
-            'description': 'Your full name',
-            'type': 'string',
-            'minLength': 3,
-            'maxLength': 40,
-            'pattern': '^[A-ZÖÄÅ][a-zöäå]*(\\s[A-ZÖÄÅ][a-zöäå]*)*$',
+    title: 'Invoice',
+    description: 'Invoice generator',
+    type: 'object',
+    required: ['name', 'memberId', 'invoiceNumber', 'services'],
+    properties: {
+        name: {
+            title: 'Your name',
+            description: 'Your full name',
+            type: 'string',
+            minLength: 3,
+            maxLength: 40,
+            pattern: '^[A-ZÖÄÅ][a-zöäå]*(\\s[A-ZÖÄÅ][a-zöäå]*)*$',
             'x-hints': {
-                'form': {
-                    'classes': 'important-field'
+                form: {
+                    classes: 'important-field'
                 }
             }
         },
-        'memberId': {
-            'title': 'Member id',
-            'description': 'Your member id',
-            'type': 'number',
-            'minLength': 1,
-            'maxLength': 10
+        memberId: {
+            title: 'Member id',
+            description: 'Your member id',
+            type: 'number',
+            minLength: 1,
+            maxLength: 10
         },
-        'invoiceNumber': {
-            'title': 'Invoice number',
-            'description': 'Invoice number (nth invoice you are sending)',
-            'type': 'number',
-            'minLength': 1,
-            'maxLength': 10
+        invoiceNumber: {
+            title: 'Invoice number',
+            description: 'Invoice number (nth invoice you are sending)',
+            type: 'number',
+            minLength: 1,
+            maxLength: 10
         },
-/*        'recipient': {
-            'title': 'Recipient',
-            'type': 'object',
-            'properties': {
-                'name': {
-                    'title': 'Name',
-                    'type': 'string'
+        recipient: {
+            title: 'Recipient',
+            type: 'object',
+            properties: {
+                company: {
+                    title: 'Company',
+                    type: 'string'
+                },
+                name: {
+                    title: 'Name',
+                    type: 'string'
+                },
+                address: {
+                    title: 'Address',
+                    type: 'string'
+                },
+                city: {
+                    title: 'City',
+                    type: 'string'
+                },
+                postalCode: {
+                    title: 'Postal Code',
+                    type: 'string'
                 }
             }
-        },*/
-        'services': {
-            'title': 'Services',
-            'type': 'array',
-            'minItems': 1,
-            'items': {
-                'type': 'object',
-                'properties': {
-                    'name': {
-                        'title': 'Service',
-                        'type': 'string'
+        },
+        services: {
+            title: 'Services',
+            type: 'array',
+            minItems: 1,
+            items: {
+                type: 'object',
+                properties: {
+                    name: {
+                        title: 'Service',
+                        type: 'string'
                     },
-                    'cost': {
-                        'title': 'Cost',
-                        'type': 'number'
+                    cost: {
+                        title: 'Cost',
+                        type: 'number'
                     }
                 }
             }
@@ -70,16 +86,20 @@ var schema = {
 var Preview = React.createClass({
     displayName: 'Preview',
     render: function() {
-        console.log(this.props.data);
+        var data = this.props.data;
 
-        // XXX: arrays/objects may be undefined initially
+        // XXX: arrays/objects may be undefined initially so extra checks are needed
+        data.services = this.props.data.services || [];
+        data.recipient = this.props.data.recipient || {};
+
         return (
             <div className="preview">
                 <header>
                     <div className="sender">
                         <div className="company">Company ltd.</div>
-                        <div className="name">{this.props.data.name}</div>
-                        <div className="address">12345 JYVÄSKYLÄ</div>
+                        <div className="name">{data.name}</div>
+                        <div className="address">Demotie 123</div>
+                        <div className="city">12345 JYVÄSKYLÄ</div>
                     </div>
                     <div className="extra">
                         <div className="invoice">INVOICE</div>
@@ -88,9 +108,17 @@ var Preview = React.createClass({
                     </div>
                 </header>
                 <article>
+                    <div className="info">
+                        <div className="recipient">
+                            <div className="company">{data.recipient.company}</div>
+                            <div className="name">{data.recipient.name}</div>
+                            <div className="address">{data.recipient.address}</div>
+                            <div className="city">{data.recipient.postalCode} {data.recipient.city}</div>
+                        </div>
+                    </div>
                     <table className="services">
                         <tr><th>Service</th><th>Tax free</th><th>Tax</th><th>Total</th></tr>
-                        {this.props.data.services.map(function(service, i) {
+                        {data.services.map(function(service, i) {
                             return <tr key={i}><td>{service.name}</td><td>{service.cost}</td></tr>;
                         })}
                     </table>
