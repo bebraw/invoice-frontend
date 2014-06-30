@@ -49,6 +49,7 @@ html {
 
 /* preview */
 header {
+    overflow: auto;
     margin-bottom: 4em;
 }
 
@@ -60,8 +61,39 @@ header .extra {
     float: right;
 }
 
-article {
+article, .info {
     margin-bottom: 4em;
+}
+
+.services {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.services th, .services td {
+    margin: 0;
+    padding: 0.3em;
+}
+
+.services th {
+    font-weight: normal;
+}
+
+.services th, .services td {
+    text-align: right;
+    border-bottom: 0.1em solid black;
+}
+
+.services tr:nth-last-child(2) td, .services tr:last-child td {
+    border-bottom: none;
+}
+
+.services tr:last-child td {
+    font-weight: bold;
+}
+
+.services th:first-child, .services td:first-child {
+    text-align: left;
 }
 
 footer {

@@ -89,12 +89,33 @@ var Preview = React.createClass({
     displayName: 'Preview',
 
     render: function() {
+        var vatPercent = 0.24;
         var today = moment().format('DD.MM.YYYY');
         var data = this.props.data;
 
         // XXX: arrays/objects may be undefined initially so extra checks are needed
-        data.services = this.props.data.services || [];
         data.recipient = this.props.data.recipient || {};
+
+        // attach vats
+        var services = this.props.data.services || [];
+        services = data.services.map(function(service) {
+            var cost = service.cost || 0;
+            var vatCost = vatPercent * cost;
+
+            return {
+                name: service.name,
+                cost: cost,
+                vat: vatPercent * 100,
+                vatCost: vatCost,
+                total: vatCost + cost
+            };
+        });
+
+        function sum(d, prop) {
+            return d.reduce(function(a, b) {
+                return a[prop] + b[prop];
+            });
+        }
 
         return (
             <div className="preview">
@@ -121,10 +142,36 @@ var Preview = React.createClass({
                         </div>
                     </div>
                     <table className="services">
-                        <tr><th>Service</th><th>Tax free</th><th>Tax</th><th>Total</th></tr>
-                        {data.services.map(function(service, i) {
-                            return <tr key={i}><td>{service.name}</td><td>{service.cost}</td></tr>;
+                        <tr>
+                            <th>Service</th>
+                            <th>Tax free</th>
+                            <th>Tax (%)</th>
+                            <th>Tax</th>
+                            <th>Total</th>
+                        </tr>
+                        {services.map(function(service, i) {
+                            return <tr key={i}>
+                                <td>{service.name}</td>
+                                <td>{service.cost.toFixed(2)}</td>
+                                <td>{service.vat.toFixed(2)}</td>
+                                <td>{service.vatCost.toFixed(2)}</td>
+                                <td>{service.total.toFixed(2)}</td>
+                            </tr>;
                         })}
+                        <tr>
+                            <td>Total</td>
+                            <td>{sum(services, 'cost').toFixed(2)}</td>
+                            <td>{sum(services, 'vat').toFixed(2)}</td>
+                            <td>{sum(services, 'vatCost').toFixed(2)}</td>
+                            <td>{sum(services, 'total').toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>{sum(services, 'total').toFixed(2)}</td>
+                        </tr>
                     </table>
                 </article>
                 <footer>
