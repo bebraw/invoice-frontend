@@ -116,7 +116,7 @@ var Preview = React.createClass({
         services.push({
             name: 'Total',
             cost: sum(services, 'cost'),
-            vat: sum(services, 'vat'),
+            vat: vatPercent * 100,
             vatCost: sum(services, 'vatCost'),
             total: total,
         });
