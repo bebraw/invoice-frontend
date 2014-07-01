@@ -7,8 +7,6 @@ var Form = require('plexus-form');
 
 
 var schema = {
-    title: 'Invoice',
-    description: 'Invoice generator',
     type: 'object',
     required: ['name', 'memberId', 'invoiceNumber', 'services'],
     properties: {
@@ -18,12 +16,7 @@ var schema = {
             type: 'string',
             minLength: 3,
             maxLength: 40,
-            pattern: '^[A-ZÖÄÅ][a-zöäå]*(\\s[A-ZÖÄÅ][a-zöäå]*)*$',
-            'x-hints': {
-                form: {
-                    classes: 'important-field'
-                }
-            }
+            pattern: '^[A-ZÖÄÅ][a-zöäå]*(\\s[A-ZÖÄÅ][a-zöäå]*)*$'
         },
         memberId: {
             title: 'Member id',
@@ -227,9 +220,16 @@ var FormDemoPage = React.createClass({
                         values={this.state.values}
                     />
                 </div>
+                <div className="handle" draggable="true" onDrag={this.dragHandle}></div>
                 <Preview data={this.state.values} />
             </div>
         );
+    },
+    dragHandle: function(event) {
+        var pos = this.getDOMNode(); // .offsetLeft; is zero
+        // jquery - $(this.getDOMNode()).offset();
+
+        // TODO: alter css attributes now of .fields and .preview now
     }
 });
 React.renderComponent(FormDemoPage(), document.getElementById('react-main'));

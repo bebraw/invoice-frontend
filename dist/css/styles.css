@@ -9,17 +9,46 @@ html {
     font-family: arial, sans-serif;
 }
 
+body {
+    margin: 0;
+    overflow: auto;
+}
+
 .fields {
-    float: left;
+    background: #E9E9E9;
+    padding: 0.5em;
+    box-shadow: inset -0.5em 0 2em rgba(0,0,0,0.6);
+    height: 100%;
+    position: fixed;
+    max-width: 25%;
 }
 
 .preview {
     overflow: hidden;
-    padding-left: 1em;
+    padding: 1em;
+    margin-left: 25%;
+}
+
+.handle {
+    position: fixed;
+    top: 50%;
+    left: 25%;
+    width: 0;
+    height: 0;
+    margin: 0;
+    margin-left: -1em;
+    padding: 0;
+    border-top: 1.5em solid transparent;
+    border-bottom: 1.5em solid transparent;
+    border-left: 1.5em solid #858585;
 }
 
 .error, .error * {
     color: red;
+}
+
+fieldset {
+    border: none;
 }
 
 .form-subsection {
