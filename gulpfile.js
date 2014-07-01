@@ -21,14 +21,10 @@ gulp.task('server', function() {
 });
 gulp.task('watch', ['watchScripts', 'watchHtml', 'watchCSS']);
 gulp.task('watchCSS', function() {
-    return gulp.watch('src/css/*.css', function() {
-        gulp.run('css');
-    });
+    return gulp.watch('src/css/*.css', ['css']);
 });
 gulp.task('watchHtml', function() {
-    return gulp.watch('src/index.html', function() {
-        gulp.run('html');
-    });
+    return gulp.watch('src/index.html', ['html']);
 });
 gulp.task('scripts', function() {
     return scripts(false);
