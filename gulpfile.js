@@ -48,7 +48,7 @@ function scripts(handler) {
         });
         stream = stream.pipe(source('bundle.js'));
 
-        return stream.pipe(gulp.dest('dist/js'));
+        return stream.pipe(gulp.dest('dist/js')).pipe(browserSync.reload({stream:true}));
     };
     bundler.on('update', rebundle);
     return rebundle();
