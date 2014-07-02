@@ -16,12 +16,7 @@ module.exports  = React.createClass({
     getInitialState: function() {
         return {
             schema: schema,
-            text: JSON.stringify(schema, null, 2),
-            // XXX: looks like these values aren't taken in count by Form!!!
-            values: {
-                services: [],
-                recipient: {}
-            }
+            values: {}
         };
     },
     onSubmit: function(output) {
