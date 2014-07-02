@@ -1,4 +1,6 @@
 {
+  "node": true,
+  "strict": false,
   "camelcase": true,
   "curly": true,
   "eqeqeq": true,
@@ -13,6 +15,7 @@
   "white": true,
   "globals": {
     "window": true,
+    "document": true,
     "require": true,
     "module": true
   }
