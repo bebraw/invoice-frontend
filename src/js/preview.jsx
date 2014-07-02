@@ -23,7 +23,7 @@ module.exports = React.createClass({
                 <header>
                     <div className="sender">
                         <div className="company">Company ltd.</div>
-                        <div className="name">{data.name}</div>
+                        <div className="name">John Doe</div>
                         <div className="address">Demotie 123</div>
                         <div className="city">12345 JYVÄSKYLÄ</div>
                     </div>

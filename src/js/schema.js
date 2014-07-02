@@ -2,30 +2,7 @@
 
 module.exports = {
     type: 'object',
-    required: ['name', 'memberId', 'invoiceNumber', 'services'],
     properties: {
-        name: {
-            title: 'Your name',
-            description: 'Your full name',
-            type: 'string',
-            minLength: 3,
-            maxLength: 40,
-            pattern: '^[A-ZÖÄÅ][a-zöäå]*(\\s[A-ZÖÄÅ][a-zöäå]*)*$'
-        },
-        memberId: {
-            title: 'Member id',
-            description: 'Your member id',
-            type: 'number',
-            minLength: 1,
-            maxLength: 10
-        },
-        invoiceNumber: {
-            title: 'Invoice number',
-            description: 'Invoice number (nth invoice you are sending)',
-            type: 'number',
-            minLength: 1,
-            maxLength: 10
-        },
         recipient: {
             title: 'Recipient',
             type: 'object',
