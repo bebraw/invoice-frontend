@@ -7,56 +7,16 @@ module.exports = React.createClass({
     displayName: 'Preview',
 
     render: function() {
-        var vatPercent = 0.24;
         var today = moment().format('DD.MM.YYYY');
         var data = this.props.data;
 
-        // XXX: arrays/objects may be undefined initially so extra checks are needed
+        // arrays/objects may be undefined initially so extra checks are needed
         data.recipient = this.props.data.recipient || {};
 
-        // attach vats
-        var services = this.props.data.services || [];
-        services = services.map(function(service) {
-            var cost = service.cost || 0;
-            var vatCost = vatPercent * cost;
-
-            return {
-                name: service.name,
-                cost: cost,
-                vat: vatPercent * 100,
-                vatCost: vatCost,
-                total: vatCost + cost
-            };
+        var services = calculateServices({
+            initial: this.props.data.services,
+            vat: 0.24
         });
-
-        // attach totals
-        var total = sum(services, 'total');
-        services.push({
-            name: 'Total',
-            cost: sum(services, 'cost'),
-            vat: vatPercent * 100,
-            vatCost: sum(services, 'vatCost'),
-            total: total,
-        });
-
-        services.push({
-            name: 'Total',
-            total: total
-        });
-
-        function sum(d, prop) {
-            return d.map(function(a) {
-                return a[prop];
-            }).reduce(function(a, b) {
-                return a + b;
-            }, 0);
-        }
-
-        function toFixed(a) {
-            if(a) {
-                return a.toFixed(2);
-            }
-        }
 
         return (
             <div className="preview">
@@ -112,3 +72,52 @@ module.exports = React.createClass({
         );
     }
 });
+
+function calculateServices(o) {
+    var services = o.initial || [];
+
+    // calculate vats
+    services = services.map(function(service) {
+        var cost = service.cost || 0;
+        var vatCost = o.vat * cost;
+
+        return {
+            name: service.name,
+            cost: cost,
+            vat: o.vat * 100,
+            vatCost: vatCost,
+            total: vatCost + cost
+        };
+    });
+
+    // calculate totals
+    var total = sum(services, 'total');
+    services.push({
+        name: 'Total',
+        cost: sum(services, 'cost'),
+        vat: o.vat * 100,
+        vatCost: sum(services, 'vatCost'),
+        total: total,
+    });
+
+    services.push({
+        name: 'Total',
+        total: total
+    });
+
+    return services;
+}
+
+function sum(d, prop) {
+    return d.map(function(a) {
+        return a[prop];
+    }).reduce(function(a, b) {
+        return a + b;
+    }, 0);
+}
+
+function toFixed(a) {
+    if(a) {
+        return a.toFixed(2);
+    }
+}
