@@ -13,7 +13,7 @@ var reactify = require('reactify');
 gulp.task('default', ['server', 'watch']);
 gulp.task('compile', ['scripts', 'css', 'html', 'assets']);
 gulp.task('server', function() {
-    return browserSync.init(null, {
+    return browserSync.init(['./dist/**/*'], {
         server: {
             baseDir: './dist'
         }
@@ -48,7 +48,7 @@ function scripts(handler) {
         });
         stream = stream.pipe(source('bundle.js'));
 
-        return stream.pipe(gulp.dest('dist/js')).pipe(browserSync.reload({stream:true}));
+        return stream.pipe(gulp.dest('dist/js'));
     };
     bundler.on('update', rebundle);
     return rebundle();
