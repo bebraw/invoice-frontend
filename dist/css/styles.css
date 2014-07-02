@@ -128,3 +128,14 @@ article, .info {
 footer {
 
 }
+
+/* hide unnecessary bits on print and make sure preview is fullsized */
+@media print {
+    .fields, .handle {
+        display: none;
+    }
+
+    .preview {
+        margin: 0;
+    }
+}
