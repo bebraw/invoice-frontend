@@ -53,9 +53,8 @@ function scripts(handler) {
             message: 'Error: <%= error.message %>',
             title: 'Browserify error'
         }));
-        stream = stream.pipe(source('bundle.js'));
 
-        return stream.pipe(gulp.dest('dist/js'));
+        return stream.pipe(source('bundle.js')).pipe(gulp.dest('dist/js'));
     };
     bundler.on('update', rebundle);
     return rebundle();
