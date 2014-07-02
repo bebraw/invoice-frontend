@@ -13,7 +13,7 @@ var reactify = require('reactify');
 gulp.task('default', ['server', 'watch']);
 gulp.task('compile', ['scripts', 'css', 'html', 'assets']);
 gulp.task('server', function() {
-    return browserSync.init(['dist/js/*.js', 'dist/index.html'], {
+    return browserSync.init(null, {
         server: {
             baseDir: './dist'
         }
@@ -27,25 +27,19 @@ gulp.task('watchHtml', function() {
     return gulp.watch('src/index.html', ['html']);
 });
 gulp.task('scripts', function() {
-    return scripts(false);
+    return scripts(browserify);
 });
 gulp.task('watchScripts', function() {
-    return scripts(true);
+    return scripts(watchify);
 });
 
-function scripts(watch) {
-    var bundler, rebundle;
+function scripts(handler) {
     var scriptFile = './src/js/app.jsx';
-
-    if(watch) {
-        bundler = watchify(scriptFile);
-    } else {
-        bundler = browserify(scriptFile);
-    }
+    var bundler = handler(scriptFile);
 
     bundler.transform(reactify);
 
-    rebundle = function() {
+    var rebundle = function() {
         var stream = bundler.bundle({
             debug: !production
         });
@@ -53,6 +47,7 @@ function scripts(watch) {
             console.log('Browserify error : ' + err);
         });
         stream = stream.pipe(source('bundle.js'));
+
         return stream.pipe(gulp.dest('dist/js'));
     };
     bundler.on('update', rebundle);

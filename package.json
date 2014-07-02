@@ -3,24 +3,22 @@
   "version": "0.0.1",
   "description": "Invoicing application",
   "dependencies": {
-    "envify": "~1.2.1",
-    "fluxxor": "~1.2.1",
-    "moment": "^2.7.0",
+    "moment": "2.7.0",
     "plexus-form": "0.0.13",
     "plexus-objective": "0.0.1",
     "plexus-validate": "0.0.2",
-    "react": "~0.10.0",
+    "react": "0.10.0",
     "react-localstorage": "0.0.1"
   },
   "devDependencies": {
-    "browser-sync": "^0.6.1",
-    "browserify": "^3.32.1",
-    "gulp": "^3.5.2",
-    "gulp-browserify": "^0.4.6",
-    "gulp-imagemin": "^0.1.5",
-    "gulp-uglify": "^0.2.1",
-    "reactify": "^0.13.1",
-    "vinyl-source-stream": "^0.1.1",
-    "watchify": "~0.10.2"
+    "browser-sync": "1.1.2",
+    "browserify": "4.2.0",
+    "gulp": "3.8.5",
+    "gulp-browserify": "0.5.0",
+    "gulp-imagemin": "0.6.1",
+    "gulp-uglify": "0.3.1",
+    "reactify": "0.13.1",
+    "vinyl-source-stream": "0.1.1",
+    "watchify": "0.10.2"
   }
 }
