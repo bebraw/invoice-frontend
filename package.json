@@ -1,6 +1,6 @@
 {
   "name": "invoice-frontend",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Invoicing application",
   "dependencies": {
     "moment": "2.7.0",
