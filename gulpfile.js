@@ -9,6 +9,7 @@ var browserSync = require('browser-sync');
 var source = require('vinyl-source-stream');
 var reactify = require('reactify');
 var gutil = require('gulp-util');
+var notify = require('gulp-notify');
 
 
 gulp.task('default', ['server', 'watch']);
@@ -48,7 +49,10 @@ function scripts(handler) {
             gutil.beep();
 
             console.log('Browserify error : ' + err);
-        });
+        }).on('error', notify.onError({
+            message: 'Error: <%= error.message %>',
+            title: 'Browserify error'
+        }));
         stream = stream.pipe(source('bundle.js'));
 
         return stream.pipe(gulp.dest('dist/js'));
