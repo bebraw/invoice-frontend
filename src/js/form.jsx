@@ -6,7 +6,6 @@ var Form = require('plexus-form');
 
 var schema = require('./schema');
 var Preview = require('./preview.jsx');
-var Handle = require('./handle.jsx');
 
 
 module.exports  = React.createClass({
@@ -37,7 +36,6 @@ module.exports  = React.createClass({
                         values={this.state.values}
                     />
                 </div>
-                <Handle />
                 <Preview data={this.state.values} />
             </div>
         );
