@@ -4,6 +4,7 @@ var LocalStorageMixin = require('react-localstorage');
 var moment = require('moment');
 var validate = require('plexus-validate');
 var Form = require('plexus-form');
+var drag = require('dragjs');
 
 
 var schema = {
@@ -187,6 +188,18 @@ var Preview = React.createClass({
         );
     }
 });
+var Handle = React.createClass({
+    displayName: 'Handle',
+    render: function() {
+        return (
+            <div className="handle" draggable="true" onDrag={this.dragHandle}></div>
+        );
+    },
+    componentDidMount: function() {
+        // TODO: extend dragjs to support this sort of work
+        drag(this.getDOMNode());
+    }
+});
 var FormDemoPage = React.createClass({
     displayName: 'FormDemoPage',
     mixins: [LocalStorageMixin],
@@ -220,16 +233,10 @@ var FormDemoPage = React.createClass({
                         values={this.state.values}
                     />
                 </div>
-                <div className="handle" draggable="true" onDrag={this.dragHandle}></div>
+                <Handle />
                 <Preview data={this.state.values} />
             </div>
         );
-    },
-    dragHandle: function(event) {
-        var pos = this.getDOMNode(); // .offsetLeft; is zero
-        // jquery - $(this.getDOMNode()).offset();
-
-        // TODO: alter css attributes now of .fields and .preview now
     }
 });
 React.renderComponent(FormDemoPage(), document.getElementById('react-main'));

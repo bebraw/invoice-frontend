@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Invoicing application",
   "dependencies": {
+    "dragjs": "^0.5.0",
     "moment": "2.7.0",
     "plexus-form": "0.0.13",
     "plexus-objective": "0.0.1",
