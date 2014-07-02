@@ -8,6 +8,7 @@ var imagemin = require('gulp-imagemin');
 var browserSync = require('browser-sync');
 var source = require('vinyl-source-stream');
 var reactify = require('reactify');
+var gutil = require('gulp-util');
 
 
 gulp.task('default', ['server', 'watch']);
@@ -44,6 +45,8 @@ function scripts(handler) {
             debug: !production
         });
         stream.on('error', function(err) {
+            gutil.beep();
+
             console.log('Browserify error : ' + err);
         });
         stream = stream.pipe(source('bundle.js'));

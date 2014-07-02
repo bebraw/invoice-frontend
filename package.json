@@ -11,6 +11,7 @@
     "react-localstorage": "0.0.1"
   },
   "devDependencies": {
+    "gulp-util": "^2.2.19",
     "browser-sync": "1.1.2",
     "browserify": "4.2.0",
     "gulp": "3.8.5",
