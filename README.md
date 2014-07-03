@@ -26,3 +26,8 @@ The JavaScript files have been set in a modular way using [browserify][browserif
 [node]:       http://nodejs.org/
 [gulp]:       http://gulpjs.com/
 [browserify]: http://browserify.org/
+
+## License
+
+MIT. See LICENSE for more details.
+
