@@ -36,7 +36,7 @@ gulp.task('watchScripts', function() {
 });
 
 function scripts(handler) {
-    var scriptFile = './src/js/app.jsx';
+    var scriptFile = './src/js/app.js';
     var bundler = handler(scriptFile);
 
     bundler.transform(reactify);
