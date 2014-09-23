@@ -111,6 +111,10 @@ article, .info {
     text-align: left;
 }
 
+.invoice {
+    font-weight: bold;
+}
+
 footer {
 
 }
