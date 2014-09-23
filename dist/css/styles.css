@@ -74,6 +74,8 @@ header .sender {
 
 header .extra {
     float: right;
+
+    text-align: right;
 }
 
 article, .info {
