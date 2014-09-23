@@ -14,6 +14,11 @@ module.exports = React.createClass({
         data.sender = this.props.data.sender || {};
         data.recipient = this.props.data.recipient || {};
 
+        var reference = calculateReference({
+            id: this.props.data.member.id,
+            number: this.props.data.member.invoiceNumber
+        });
+
         var services = calculateServices({
             initial: this.props.data.services,
             vat: 0.24
@@ -35,7 +40,7 @@ module.exports = React.createClass({
                     <div className="extra">
                         <div className="invoice">INVOICE</div>
                         <div className="date">{today}</div>
-                        <div className="logo">LOGO</div>
+                        <div className="reference"># {reference}</div>
                     </div>
                 </header>
                 <article>
@@ -127,4 +132,46 @@ function toFixed(a) {
     if(a) {
         return a.toFixed(2);
     }
+}
+
+function calculateReference(o) {
+    if(o.id && o.number) {
+        return teeViite(o.id, o.number)
+    }
+}
+
+// Viitenumeron muodostaja JavaScriptillä
+// (c) Kimmo Surakka <kusti@cs.tut.fi>, 1998
+// Koodia saa käyttää vapaasti muuttamattomana,
+// tätä tekijänoikeusilmoitusta ei saa poistaa.
+//
+// Muokattu Kimmo Surakan luvalla, nyt muodostaa sarjan viitenumeroita. 
+// (c) Jori Mäntysalo <jori.mantysalo@uta.fi>, 2004
+//
+function teeViite(memberId, invoiceId) {
+    var pohja = '' + (memberId * 1000 + invoiceId);
+
+    // tarkistetta käytetään painotetun summan laskemiseen
+    var tarkiste = 0;
+    //  tänne sijoitetaan lopullinen, muotoiltu merkkijono:
+    var muotoiltu="";
+    // Tarvittavat kertoimet löytyvät tästä:
+    var kerroin = "731";
+    // Käydään merkkijono läpi lopusta alkuun:
+    for( var i=pohja.length - 1, j=0, k=1 ; i >= 0 ; i--, j++, k++) {
+        // Käsiteltävä merkki:
+        var merkki = pohja.charAt(i, 10);
+        // Lasketaan painotettua summaa:
+        tarkiste += parseInt(kerroin.charAt( j % 3 ), 10)
+                    * parseInt(merkki);
+        // Muotoillaan samalla tulosmerkkijonoa:
+        if( k%5 == 0) {
+            muotoiltu = " " + muotoiltu;
+        }
+        muotoiltu = merkki + muotoiltu;
+    }
+    // Muodostetaan tarkistusnumero
+    tarkiste = (10 - tarkiste % 10) % 10;
+    // Palautetaan täydellinen viitenumero:
+    return muotoiltu + tarkiste.toString();
 }
