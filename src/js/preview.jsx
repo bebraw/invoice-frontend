@@ -11,6 +11,7 @@ module.exports = React.createClass({
         var data = this.props.data;
 
         // arrays/objects may be undefined initially so extra checks are needed
+        data.sender = this.props.data.sender || {};
         data.recipient = this.props.data.recipient || {};
 
         var services = calculateServices({
@@ -21,11 +22,15 @@ module.exports = React.createClass({
         return (
             <div className="preview">
                 <header>
+                    <h1 className="company">{data.sender.company}</h1>
                     <div className="sender">
-                        <div className="company">Company ltd.</div>
-                        <div className="name">John Doe</div>
-                        <div className="address">Demotie 123</div>
-                        <div className="city">12345 JYVÄSKYLÄ</div>
+                        <div className="name">{data.sender.name}</div>
+                        <div className="address">{data.sender.address}</div>
+                        <div className="city">{data.sender.postalCode} {data.sender.city}</div>
+                        <div className="phone">Phone: {data.sender.phone}</div>
+                        <div className="iban">IBAN: {data.sender.iban}</div>
+                        <div className="bic">BIC/SWIFT: {data.sender.bic}</div>
+                        <div className="companyId">Company ID: {data.sender.companyId}</div>
                     </div>
                     <div className="extra">
                         <div className="invoice">INVOICE</div>
@@ -40,6 +45,8 @@ module.exports = React.createClass({
                             <div className="name">{data.recipient.name}</div>
                             <div className="address">{data.recipient.address}</div>
                             <div className="city">{data.recipient.postalCode} {data.recipient.city}</div>
+                            <div className="phone">{data.recipient.phone}</div>
+                            <div className="companyId">{data.recipient.companyId}</div>
                         </div>
                     </div>
                     <table className="services">
