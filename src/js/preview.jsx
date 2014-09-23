@@ -14,9 +14,11 @@ module.exports = React.createClass({
         data.sender = this.props.data.sender || {};
         data.recipient = this.props.data.recipient || {};
 
+        var member = this.props.data.member || {};
+
         var reference = calculateReference({
-            id: this.props.data.member.id,
-            number: this.props.data.member.invoiceNumber
+            id: member.id,
+            number: member.invoiceNumber
         });
 
         var services = calculateServices({
