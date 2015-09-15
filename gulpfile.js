@@ -42,9 +42,7 @@ function scripts(handler) {
     bundler.transform(reactify);
 
     var rebundle = function() {
-        var stream = bundler.bundle({
-            debug: !production
-        });
+        var stream = bundler.bundle();  // {debug: !production}
         stream.on('error', function(err) {
             gutil.beep();
 
