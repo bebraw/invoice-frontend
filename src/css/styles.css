@@ -21,6 +21,9 @@ body {
     height: 100%;
     position: fixed;
     max-width: 25%;
+    overflow: auto;
+    overflow-y: scroll;
+    height: 100%;
 }
 
 .preview {
