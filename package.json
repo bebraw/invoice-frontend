@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "description": "Invoicing application",
   "dependencies": {
-    "moment": "2.7.0",
+    "moment": "^2.22.1",
     "plexus-form": "0.0.13",
     "plexus-objective": "0.0.1",
     "plexus-validate": "0.0.2",
